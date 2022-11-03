@@ -40,7 +40,7 @@ int main(void) /* This is the main entry point */ {
 ```
 * Multi-line comments **MUST** use multiple lines with `//`
 
-* Do not use space between function name and opening bracket
+* There **MUST** not be a space between function name and opening bracket
 ```c
 // RIGHT
 int main(void) {
@@ -64,7 +64,7 @@ int main() {
     return 0;
 }
 ```
-* Use single space before and after comparison and assignment operators (`*, +, /, =, ==, =*, ...`)
+* There **MUST** be a single space before and after comparison and assignment operators (`*, +, /, =, ==, =*, ...`)
 ```c
 // RIGHT
 int a = 3 + 4;
@@ -89,7 +89,7 @@ func_name(4,3);
 ```
 
 * Opening curly bracket **MUST** be placed on the same line as the keyword (`for`, `while`, `do`, `switch`, `if`, ...)
-* The opening curly bracket **MUST** be seperated from the ending parenthesis by a space
+* The opening curly bracket **MUST** be separated from the ending parenthesis by a space
 ```c
 size_t i;
 // RIGHT
@@ -137,10 +137,10 @@ void my_func(void) {
 }
 ```
 
-* Local variables should be sorted by type, and then alphabetically
+* Local variables **SHOULD** be sorted by type, and then alphabetically
   1. Structs, enums, and pointers thereto, then finally other pointers.
-     1. Pointers should follow directly after the types that they are pointing to
-     2. Const pointers should come before any regular pointers 
+     1. Pointers **SHOULD** follow directly after the types that they are pointing to
+     2. Const pointers **SHOULD** come before any regular pointers 
 ```c
 typedef struct {
     int32_t a;
@@ -237,11 +237,11 @@ for (int32_t = 0; i < 100; i++) {}
 int32_t size = sizeof(S) * 10;
 ``` 
  
-* `const` for pointer parameters **MUST** be used if function should not modify memory pointed to by `pointer`
+* `const` for pointer parameters **MUST** be used if function will not modify memory pointed to by `pointer`
 ```c
-// When data pointed to by d could not be modified
+// When data pointed to by d will not be modified
 void my_func(const void* d) {}
-// When the data pointed to by d could not be modified
+// When the data pointed to by d will be modified
 void my_func(void* d) {}
 ```
 
@@ -298,6 +298,8 @@ typedef enum {
     B,
 } Enum;
 ```
+
+* Constructing of structs **MUST** use the dot notation `(Struct){.field = value;};`
 
 ## Naming and Casing
 
@@ -380,6 +382,14 @@ The `body` should include the additional information about the change.
 * ```
   style: remove empty line
   ```
+
+## PR Etiquette
+
+* Branches **MUST** be named `<name>-<one-or-two-word-description>` or `<name>-<issue-id>`
+
+* PRs **MUST** be reviewed by at least 1 other person
+
+* PR feedback **MUST** be prefixed with `style: ` in case the code doesn't follow this style guide
 
 ## File Structure
 
