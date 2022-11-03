@@ -335,6 +335,7 @@ empty line
 ### Scopes
 The `scope` provides additional contextual information about what parts the commit affect.
 * Is an **optional** part of the format
+* If you use a new scope, you **MUST** create a new entry in SCOPES.md and document what it encompasses.
 
 The scope **CAN** be eg. the file of where a function name was changed, as the diff would include multiple files, but the main change is contained to the single file
 
