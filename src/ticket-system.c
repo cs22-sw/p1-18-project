@@ -19,7 +19,6 @@ typedef struct matches {
 } matches;
 
 matches create_match(char *first_team, char *second_team, char *stadium_match, date date_match) {
-
     matches match;
     strcpy(match.team_1, first_team);
     strcpy(match.team_2, second_team);
@@ -40,10 +39,9 @@ int32_t user_input(void) {
 }
 
 int main(void) {
-    // example
-    date date_match = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
-    matches match = create_match("MC united", "FCB", "Old Traffod", date_match);
-
+    // example of creating team:
+    /* date date_match = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
+    matches match = create_match("MC united", "FCB", "Old Trafford", date_match); */
 
     while (true) {
         printf("1. Overview of upcoming matches\n");
