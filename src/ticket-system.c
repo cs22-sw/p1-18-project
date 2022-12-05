@@ -17,8 +17,8 @@ int32_t user_input(void) {
 int main(void) {
     // example of creating team:
     /*
-    Date date_match = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
-    Matches match = create_match("MC united", "FCB", "Old Trafford", date_match);
+    Date date_match_info = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
+    Matches match = create_match("MC united", "FCB", "Big stadium", date_match_info);
     */
 
     while (true) {
