@@ -2,31 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-
-typedef struct date {
-    int year;
-    int month;
-    int day;
-    int hour;
-    int minute;
-} date;
-
-typedef struct matches {
-    char team_1[256];
-    char team_2[256];
-    char stadium[256];
-    struct date match_date;
-} matches;
-
-matches create_match(char *first_team, char *second_team, char *stadium_match, date date_match) {
-    matches match;
-    strcpy(match.team_1, first_team);
-    strcpy(match.team_2, second_team);
-    strcpy(match.stadium, stadium_match);
-    match.match_date = date_match;
-
-    return match;
-}
+#include "create-match-stats.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
 int32_t user_input(void) {
@@ -40,8 +16,10 @@ int32_t user_input(void) {
 
 int main(void) {
     // example of creating team:
-    /* date date_match = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
-    matches match = create_match("MC united", "FCB", "Old Trafford", date_match); */
+    /*
+    Date date_match = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
+    Matches match = create_match("MC united", "FCB", "Old Trafford", date_match);
+    */
 
     while (true) {
         printf("1. Overview of upcoming matches\n");
