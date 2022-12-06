@@ -5,6 +5,7 @@
 
 #include "overview-matches.h"
 #include "create-match-stats.h"
+#include "add-matches-file.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
 int32_t user_input(void) {
@@ -16,38 +17,45 @@ int32_t user_input(void) {
     return selected;
 }
 
-int main(void) {
+int main(void)
+{
     // example of creating team:
     Date date_match_info = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
     Matches match = create_match("MC united", "FCB", "Big stadium", date_match_info);
 
-   //Make dynamic
-   Matches all_matches[10];
-   for (int i = 0; i < 10; i++) {
+    // Make dynamic
+    Matches all_matches[10];
+    for (int i = 0; i < 10; i++) {
         all_matches[i] = match;
-   }
-   
-   int size_all_matches = sizeof(all_matches) / sizeof(all_matches[0]);
+    }
 
-    while (true) {
+    int size_all_matches = sizeof(all_matches) / sizeof(all_matches[0]);
+    bool add_success = add_array_matches(all_matches, size_all_matches);
+    
+    if (!add_success) {
+        printf("All matches couldn't be added successfully");
+    }
+
+    while (true)
+    {
         printf("1. Overview of upcoming matches\n");
         printf("2. Book tickets\n");
         printf("3. Search upcoming matches\n");
         printf("0. Exit\n");
         int32_t selected = user_input();
         switch (selected) {
-            case 0:
-                return 0;
-            case 1:
-                printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
-                overview_of_upcoming_matches(all_matches, size_all_matches);
-                break;
-            case 2:
-                printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
-                break;
-            case 3:
-                printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
-                break;
+        case 0:
+            return 0;
+        case 1:
+            printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
+            overview_of_upcoming_matches(all_matches, size_all_matches);
+            break;
+        case 2:
+            printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
+            break;
+        case 3:
+            printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
+            break;
         }
     }
 }

@@ -5,8 +5,7 @@
 
 #define STRING_MAX_LENGTH 256
 
-typedef struct
-{
+typedef struct {
     int year;
     int month;
     int day;
@@ -14,8 +13,7 @@ typedef struct
     int minute;
 } Date;
 
-typedef struct
-{
+typedef struct {
     char team_1[STRING_MAX_LENGTH];
     char team_2[STRING_MAX_LENGTH];
     char stadium[STRING_MAX_LENGTH];
