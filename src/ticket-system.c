@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+
+#include "overview-matches.h"
 #include "create-match-stats.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
@@ -16,10 +18,16 @@ int32_t user_input(void) {
 
 int main(void) {
     // example of creating team:
-    /*
     Date date_match_info = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
     Matches match = create_match("MC united", "FCB", "Big stadium", date_match_info);
-    */
+
+   //Make dynamic
+   Matches all_matches[10];
+   for (int i = 0; i < 10; i++) {
+        all_matches[i] = match;
+   }
+   
+   int size_all_matches = sizeof(all_matches) / sizeof(all_matches[0]);
 
     while (true) {
         printf("1. Overview of upcoming matches\n");

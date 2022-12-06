@@ -4,3 +4,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(ticket-system src/ticket-system.c)
 add_library(create-match-stats src/create-match-stats.c)
+add_library(overview-matches src/overview-matches.c)
+target_link_libraries(ticket-system create-match-stats)
+target_link_libraries(ticket-system overview-matches)
