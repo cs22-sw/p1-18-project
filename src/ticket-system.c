@@ -40,6 +40,7 @@ int main(void) {
                 return 0;
             case 1:
                 printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
+                overview_of_upcoming_matches(all_matches, size_all_matches);
                 break;
             case 2:
                 printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
