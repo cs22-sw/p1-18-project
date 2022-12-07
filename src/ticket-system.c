@@ -9,11 +9,9 @@
 #include "create-array.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
-int32_t user_input(void)
-{
+int32_t user_input(void) {
     int32_t selected = -1;
-    while (selected < 0 || selected > 3)
-    {
+    while (selected < 0 || selected > 3) {
         printf("Please pick an option and type enter (1, 2, 3): ");
         scanf("%d", &selected);
     }
@@ -33,23 +31,20 @@ void clear_screen() {
     }
 }
 
-int main(void)
-{
+int main(void) {
     // Create array
     MatchList all_matches = create_new_match_list();
     
     // Reads matches.txt and adds the unto the array
     create_array(&all_matches);
 
-    while (true)
-    {
+    while (true) {
         printf("1. Overview of upcoming matches\n");
         printf("2. Book tickets\n");
         printf("3. Search upcoming matches\n");
         printf("0. Exit\n");
         int32_t selected = user_input();
-        switch (selected)
-        {
+        switch (selected) {
         case 0:
             return 0;
         case 1:

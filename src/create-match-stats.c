@@ -3,8 +3,7 @@
 Matches create_match(char *first_team,
                      char *second_team,
                      char *stadium_match,
-                     Date info_date_match)
-{
+                     Date info_date_match) {
     Matches match;
     strcpy(match.team_1, first_team);
     strcpy(match.team_2, second_team);

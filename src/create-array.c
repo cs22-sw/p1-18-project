@@ -1,36 +1,28 @@
 #include "create-array.h"
 
-MatchList create_new_match_list()
-{
+MatchList create_new_match_list() {
     MatchList match_list = {.total_size_arr = 0, .used_size_arr = 0, .match = NULL};
-
     return match_list;
 }
 
-void add_match(Matches match, MatchList *list)
-{
-    if(list->total_size_arr == 0)
-    {
+void add_match(Matches match, MatchList *list) {
+    if(list->total_size_arr == 0) {
         list->match = malloc(sizeof(Matches));
 
         list->match[0] = match;
         list->total_size_arr = 1;
         list->used_size_arr = 1;
         return;
-
     }
-    if(list->used_size_arr == list->total_size_arr)
-    {
+
+    if(list->used_size_arr == list->total_size_arr) {
         Matches* new_match = malloc(sizeof(Matches)*list->total_size_arr*2);
 
-        for (int i = 0; i < list->used_size_arr; i++)
-        {
+        for (int i = 0; i < list->used_size_arr; i++) {
             new_match[i] = list->match[i];
         }
         list->total_size_arr = list->total_size_arr * 2;
-
         free(list->match);
-
         list->match = new_match;
     }
 
@@ -38,8 +30,7 @@ void add_match(Matches match, MatchList *list)
     list->used_size_arr = list->used_size_arr + 1;
 }
 
-bool create_array(MatchList *all_matches)
-{
+bool create_array(MatchList *all_matches) {
     int eof = 0;
     FILE *fp;
     fp = fopen("../src/matches.txt", "r");
@@ -61,6 +52,5 @@ bool create_array(MatchList *all_matches)
         add_match(match, all_matches);
     }
     fclose(fp);
-
     return true;
 }
