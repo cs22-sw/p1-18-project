@@ -5,12 +5,14 @@
 
 #include "overview-matches.h"
 #include "create-match-stats.h"
-#include "add-matches-file.h"
+#include "create-array.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
-int32_t user_input(void) {
+int32_t user_input(void)
+{
     int32_t selected = -1;
-    while (selected < 0 || selected > 3) {
+    while (selected < 0 || selected > 3)
+    {
         printf("Please pick an option and type enter (1, 2, 3): ");
         scanf("%d", &selected);
     }
@@ -19,22 +21,13 @@ int32_t user_input(void) {
 
 int main(void)
 {
-    // example of creating team:
-    Date date_match_info = {.year = 2022, .month = 12, .day = 22, .hour = 15, .minute = 15};
-    Matches match = create_match("MC united", "FCB", "Big stadium", date_match_info);
-
-    // Make dynamic
-    Matches all_matches[10];
-    for (int i = 0; i < 10; i++) {
-        all_matches[i] = match;
-    }
-
-    int size_all_matches = sizeof(all_matches) / sizeof(all_matches[0]);
-    bool add_success = add_array_matches(all_matches, size_all_matches);
+    // Create array
+    Matches *all_matches = malloc(sizeof(Matches));
     
-    if (!add_success) {
-        printf("All matches couldn't be added successfully");
-    }
+    // Reads matches.txt and adds the unto the array
+    all_matches = create_array(all_matches);
+
+    int size_matches = sizeof(all_matches) / sizeof(all_matches[0]);
 
     while (true)
     {
@@ -43,12 +36,13 @@ int main(void)
         printf("3. Search upcoming matches\n");
         printf("0. Exit\n");
         int32_t selected = user_input();
-        switch (selected) {
+        switch (selected)
+        {
         case 0:
             return 0;
         case 1:
             printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
-            overview_of_upcoming_matches(all_matches, size_all_matches);
+            overview_of_upcoming_matches(all_matches, size_matches);
             break;
         case 2:
             printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
@@ -58,4 +52,5 @@ int main(void)
             break;
         }
     }
+    free(all_matches);
 }
