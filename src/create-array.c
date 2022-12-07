@@ -42,23 +42,21 @@ bool create_array(MatchList *all_matches)
 {
     int eof = 0;
     FILE *fp;
-    fp = fopen("matches.txt", "r");
+    fp = fopen("../src/matches.txt", "r");
+    if (fp == NULL) {
+        printf("Couldn't open matches.txt");
+        return false;
+    }
 
-    for (int i = 0; eof != EOF; i++)
-    {
+    while (true) {
         Matches match;
-        Date date;
-        eof = fscanf(fp,
-                     "%s%*c %s%*c %s%*c %d%*c %d%*c %d%*c %d%*c %d%*c",
-                     match.team_1,
-                     match.team_2,
-                     match.stadium,
-                     &date.year,
-                     &date.month,
-                     &date.day,
-                     &date.hour,
-                     &date.minute);
-        match.match_date_info = date;
+
+        int eof = fscanf(fp, "%[^,],%[^,],%[^,],%d,%d,%d,%d,%d\n", match.team_1, match.team_2, match.stadium,
+                     &match.match_date_info.year, &match.match_date_info.month, &match.match_date_info.day,
+                     &match.match_date_info.hour, &match.match_date_info.minute);
+        if (eof == EOF) {
+            break;
+        }
 
         add_match(match, all_matches);
     }
