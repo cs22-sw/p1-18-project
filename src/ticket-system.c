@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -19,14 +20,15 @@ int32_t user_input(void)
     return selected;
 }
 
-void next_task() {
+void clear_screen() {
     char operation;
     while (true) {
         printf("Do you want to continue?: Y/N ");
         scanf(" %c", &operation);
         if (operation == 'Y' || operation == 'y') {
-            system("CLS");
-            return;
+            // clear console output
+            printf("\033[2J\033[1;1h");
+            break;
         }
     }
 }
@@ -54,7 +56,7 @@ int main(void)
             // printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
             printf("Overview of upcoming matches: \n");
             overview_of_upcoming_matches(all_matches);
-            next_task();
+            clear_screen();
             break;
         case 2:
             printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
