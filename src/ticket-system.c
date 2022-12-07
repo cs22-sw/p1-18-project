@@ -26,6 +26,7 @@ void next_task() {
         scanf(" %c", &operation);
         if (operation == 'Y' || operation == 'y') {
             system("CLS");
+            return;
         }
     }
 }
