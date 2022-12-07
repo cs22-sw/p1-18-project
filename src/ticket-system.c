@@ -19,15 +19,24 @@ int32_t user_input(void)
     return selected;
 }
 
+void next_task() {
+    char operation;
+    while (true) {
+        printf("Do you want to continue?: Y/N ");
+        scanf(" %c", &operation);
+        if (operation == 'Y' || operation == 'y') {
+            system("CLS");
+        }
+    }
+}
+
 int main(void)
 {
     // Create array
-    Matches *all_matches = malloc(sizeof(Matches));
+    MatchList all_matches = create_new_match_list();
     
     // Reads matches.txt and adds the unto the array
-    all_matches = create_array(all_matches);
-
-    int size_matches = sizeof(all_matches) / sizeof(all_matches[0]);
+    create_array(&all_matches);
 
     while (true)
     {
@@ -41,8 +50,10 @@ int main(void)
         case 0:
             return 0;
         case 1:
-            printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
-            overview_of_upcoming_matches(all_matches, size_matches);
+            // printf("An overview of upcoming matches and where to get tickets so the users are able to find and purchase tickets for the matches they are interested in. This helps make the whole process easier for the users not only by showing the matches but also by providing a page or a link straight to the specific tickets product page.\n");
+            printf("Overview of upcoming matches: \n");
+            overview_of_upcoming_matches(all_matches);
+            next_task();
             break;
         case 2:
             printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
@@ -52,5 +63,4 @@ int main(void)
             break;
         }
     }
-    free(all_matches);
 }
