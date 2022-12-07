@@ -1,9 +1,7 @@
 #include "overview-matches.h"
 
-void overview_of_upcoming_matches(MatchList all_matches)
-{
-    for (int i = 0; i < all_matches.used_size_arr; i++)
-    {
+void overview_of_upcoming_matches(MatchList all_matches) {
+    for (int i = 0; i < all_matches.used_size_arr; i++) {
         printf("%d. %s - %s at %s, %d.%d %d/%d-%d \n",
                i,
                all_matches.match[i].team_1,
