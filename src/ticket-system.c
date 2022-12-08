@@ -33,10 +33,10 @@ void clear_screen() {
 
 int main(void) {
     // Create array
-    MatchList all_matches = create_new_match_list();
+    MatchList all_matches = new_match_list();
     
     // Reads matches.txt and adds the unto the array
-    create_array(&all_matches);
+    load_matches_file(&all_matches);
 
     while (true) {
         printf("1. Overview of upcoming matches\n");

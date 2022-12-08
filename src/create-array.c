@@ -1,6 +1,6 @@
 #include "create-array.h"
 
-MatchList create_new_match_list() {
+MatchList new_match_list() {
     MatchList match_list = {.total_size_arr = 0, .used_size_arr = 0, .match = NULL};
     return match_list;
 }
@@ -30,7 +30,7 @@ void add_match(Matches match, MatchList *list) {
     list->used_size_arr = list->used_size_arr + 1;
 }
 
-bool create_array(MatchList *all_matches) {
+bool load_matches_file(MatchList *all_matches) {
     int eof = 0;
     FILE *fp;
     fp = fopen("../src/matches.txt", "r");
