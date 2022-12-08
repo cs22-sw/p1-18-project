@@ -41,48 +41,48 @@ int levenshtein_distance(char *string_1, char *string_2) {
 }
 
 char *check_levenshtein_distance(MatchList matches, char *search_stirng) {
-    char **all_teams = calloc(1000, sizeof(char*));
-    int length = 0;
+    StringList all_teams = new_string_list();
     for (int i = 0; i < matches.used_size_arr; i++) {
-        char team_1[100];
-        char team_2[100];  
+        char team_1[STRING_MAX_LENGTH];
+        char team_2[STRING_MAX_LENGTH];
         
         strcpy(team_1, matches.match[i].team_1);
         strcpy(team_2, matches.match[i].team_2);
 
         bool team_1_found = false;
         bool team_2_found = false;
-        for (int j = 0; all_teams[j] != NULL; j++) {
-            if (strcmp(all_teams[j], team_1) == 0) {
+        for (int j = 0; all_teams.length; j++) {
+            if (strcmp(all_teams.data[j], matches.match[i].team_2) == 0) {
                 team_1_found = true;
                 break;
             }
-            if (strcmp(all_teams[j], team_2) == 0) {
+            if (strcmp(all_teams.data[j], matches.match[i].team_2) == 0) {
                 team_2_found = true;
                 break;
             }
         }
         if (!team_1_found) {
-            all_teams[length] = team_1;
-            length++;
+            add_string_list(&all_teams, matches.match[i].team_1);
         }
         if (!team_2_found) {
-            all_teams[length] = team_2;
-            length++;
+            add_string_list(&all_teams, matches.match[i].team_2);
         }
     }
 
     int absolute_distance = 100;
-    char *close_search_word;
-    for (int i = 0; i < length; i++) {
-        int distance = levenshtein_distance(search_stirng, all_teams[i]);
+    char close_search_word[STRING_MAX_LENGTH];
+    for (int i = 0; i < all_teams.length; i++) {
+        int distance = levenshtein_distance(search_stirng, all_teams.data[i]);
         if (distance <= absolute_distance) {
             absolute_distance = distance;
-            strcpy(close_search_word, all_teams[i]);
+            strcpy(close_search_word, all_teams.data[i]);
         }
     }
-    free(all_teams);
-    return close_search_word;
+
+    char* closest_word = malloc(strlen(close_search_word) + 1);
+    strcpy(closest_word, close_search_word);
+    free_string_list(all_teams);
+    return closest_word;
 }
 
 MatchList search_matches(MatchList Matches, char *search_word)

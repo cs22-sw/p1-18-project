@@ -10,10 +10,12 @@ bool book_ticket(MatchList matches)
     printf("> ");
     scanf(" %s", buffer);
 
-    strcpy(buffer, check_levenshtein_distance(matches, buffer));
+    char* closest_team = check_levenshtein_distance(matches, buffer);
+    strcpy(buffer, closest_team);
+    free(closest_team);
 
     printf("%s\n", buffer);
-    
+
     if (buffer != NULL)
     {
         matches_found = search_matches(matches, buffer);

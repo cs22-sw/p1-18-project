@@ -9,6 +9,7 @@
 
 #include "create-match-stats.h"
 #include "create-array.h"
+#include "string-list.h"
 
 MatchList search_matches(MatchList Matches, char *search_word);
 
