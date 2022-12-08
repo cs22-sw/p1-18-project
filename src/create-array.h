@@ -8,10 +8,10 @@
 
 #include "create-match-stats.h"
 
-MatchList create_new_match_list();
+MatchList new_match_list();
 
 void add_match(Matches match, MatchList *list);
 
-bool create_array(MatchList *all_matches);
+bool load_matches_file(MatchList *all_matches);
 
 #endif
