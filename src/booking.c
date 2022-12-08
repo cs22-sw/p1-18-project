@@ -12,11 +12,13 @@ bool book_ticket(MatchList matches)
 
     strcpy(buffer, check_levenshtein_distance(matches, buffer));
 
-    if(buffer != NULL)
+    printf("%s\n", buffer);
+    
+    if (buffer != NULL)
     {
         matches_found = search_matches(matches, buffer);
     }
-    
+
     overview_of_upcoming_matches(matches_found);
     free(buffer);
     return true;

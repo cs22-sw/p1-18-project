@@ -56,9 +56,9 @@ int main(void) {
             break;
         case 2:
             printf("A booking system so the customers won’t have to go to a third-party site for booking the tickets, this would streamline the process and make it easier for the customer to acquire the tickets.\n");
-            // Promt the user for wich teams they would like to watch
+            // Prompt the user for which teams they would like to watch
             // Make new list with only those matches
-            // Display the matches and ask the user wich match they would like to book a ticket for
+            // Display the matches and ask the user which match they would like to book a ticket for
             // Print the ticket in terminal and in a file
             bool added_successfully = book_ticket(all_matches);
             if (added_successfully) {

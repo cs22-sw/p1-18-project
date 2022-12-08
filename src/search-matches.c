@@ -63,11 +63,11 @@ char *check_levenshtein_distance(MatchList matches, char *search_stirng) {
             }
         }
         if (!team_1_found) {
-            strcpy(all_teams[length], team_1);
+            all_teams[length] = team_1;
             length++;
         }
         if (!team_2_found) {
-            strcpy(all_teams[length], team_2);
+            all_teams[length] = team_2;
             length++;
         }
     }
