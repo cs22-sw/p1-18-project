@@ -14,6 +14,6 @@ MatchList search_matches(MatchList Matches, char *search_word);
 
 char *check_levenshtein_distance(MatchList matches, char *search_stirng);
 
-int levenshtein_distance(char *string_1, char *string_2)
+int levenshtein_distance(char *string_1, char *string_2);
 
 #endif

@@ -18,6 +18,6 @@ bool book_ticket(MatchList matches)
     }
     
     overview_of_upcoming_matches(matches_found);
-
     free(buffer);
+    return true;
 }

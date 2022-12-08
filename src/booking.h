@@ -19,5 +19,7 @@ typedef struct {
     char *atendee;
 } Ticket;
 
+bool book_ticket(MatchList matches);
+
 
 #endif

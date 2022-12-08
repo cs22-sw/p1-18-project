@@ -7,6 +7,7 @@
 #include "overview-matches.h"
 #include "create-match-stats.h"
 #include "create-array.h"
+#include "booking.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
 int32_t user_input(void) {
@@ -59,6 +60,11 @@ int main(void) {
             // Make new list with only those matches
             // Display the matches and ask the user wich match they would like to book a ticket for
             // Print the ticket in terminal and in a file
+            bool added_successfully = book_ticket(all_matches);
+            if (added_successfully) {
+                printf("Booked success");
+            }
+            clear_screen();
             break;
         // TODO: New case for showing booked tickets
         case 3:

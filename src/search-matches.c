@@ -44,8 +44,11 @@ char *check_levenshtein_distance(MatchList matches, char *search_stirng) {
     char **all_teams = calloc(1000, sizeof(char*));
     int length = 0;
     for (int i = 0; i < matches.used_size_arr; i++) {
-        char team_1[100] = matches.match[i].team_1;
-        char team_2[100] = matches.match[i].team_2;
+        char team_1[100];
+        char team_2[100];  
+        
+        strcpy(team_1, matches.match[i].team_1);
+        strcpy(team_2, matches.match[i].team_2);
 
         bool team_1_found = false;
         bool team_2_found = false;
