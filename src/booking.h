@@ -16,8 +16,10 @@
 
 typedef struct {
     Matches match;
-    char *atendee;
+    char atendee[STRING_MAX_LENGTH];
 } Ticket;
+
+bool print_ticket(Ticket ticket);
 
 bool book_ticket(MatchList matches);
 
