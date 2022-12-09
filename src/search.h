@@ -7,14 +7,14 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "create-match-stats.h"
-#include "create-array.h"
+#include "match.h"
+#include "match-list.h"
 #include "string-list.h"
 
 MatchList search_matches(MatchList Matches, char *search_word);
 
-char *check_levenshtein_distance(MatchList matches, char *search_stirng);
+char *find_closest_team(MatchList matches, char *search_team);
 
-int levenshtein_distance(char *string_1, char *string_2);
+int levenshtein_distance(char *s, char *t);
 
 #endif

@@ -7,16 +7,16 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "create-match-stats.h"
-#include "create-array.h"
-#include "search-matches.h"
-#include "overview-matches.h"
+#include "match.h"
+#include "match-list.h"
+#include "search.h"
+#include "overview.h"
 
 #define STRING_MAX_LENGTH 256
 
 typedef struct {
-    Matches match;
-    char *atendee;
+    Match match;
+    char *attendee;
 } Ticket;
 
 bool book_ticket(MatchList matches);

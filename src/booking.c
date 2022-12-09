@@ -2,7 +2,7 @@
 
 bool book_ticket(MatchList matches)
 {
-    char *buffer = calloc(256, sizeof(char));
+    char buffer[STRING_MAX_LENGTH];
 
     MatchList matches_found = new_match_list();
 
@@ -10,18 +10,14 @@ bool book_ticket(MatchList matches)
     printf("> ");
     scanf(" %s", buffer);
 
-    char* closest_team = check_levenshtein_distance(matches, buffer);
+    char* closest_team = find_closest_team(matches, buffer);
     strcpy(buffer, closest_team);
     free(closest_team);
 
     printf("%s\n", buffer);
 
-    if (buffer != NULL)
-    {
-        matches_found = search_matches(matches, buffer);
-    }
+    matches_found = search_matches(matches, buffer);
 
     overview_of_upcoming_matches(matches_found);
-    free(buffer);
     return true;
 }

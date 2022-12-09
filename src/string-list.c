@@ -1,6 +1,6 @@
 #include "string-list.h"
 
-StringList new_string_list() {
+StringList new_string_list(void) {
     return (StringList){
         .length = 0,
         .capacity = 0,

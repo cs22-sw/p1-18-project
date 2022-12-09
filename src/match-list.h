@@ -6,11 +6,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "create-match-stats.h"
+#include "match.h"
 
-MatchList new_match_list();
+typedef struct {
+    int capacity;
+    int length;
+    Match *data;
+} MatchList;
 
-void add_match(Matches match, MatchList *list);
+MatchList new_match_list(void);
+
+void add_match_list(Match match, MatchList *list);
 
 bool load_matches_file(MatchList *all_matches);
 
