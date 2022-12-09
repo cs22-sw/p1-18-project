@@ -33,6 +33,10 @@ void clear_screen() {
     }
 }
 
+void specific_search_print(MatchList matches_found) {
+    overview_of_upcoming_matches(matches_found);
+}
+
 void specific_search_input(Search_word *ptr_user_input) {
     int operation = -1;
     char temp_string[256];
@@ -77,7 +81,6 @@ void specific_search_input(Search_word *ptr_user_input) {
         }
         user_input_date = (Date){.month = input_month, .day = input_day};
         ptr_user_input->operation = operation;
-        ptr_user_input->search_word = "";
         ptr_user_input->user_input = user_input_date;
         return;
     }
@@ -125,7 +128,7 @@ int main(void) {
         case 3:
             // printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
             specific_search_input(&inputs);
-            search_matches(all_matches, inputs);
+            specific_search_print(search_matches(all_matches, inputs));
             clear_screen();
             break;
         }

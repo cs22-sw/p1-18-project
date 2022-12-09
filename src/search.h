@@ -20,7 +20,7 @@ typedef enum {
 typedef struct {
     Date user_input;
     int operation;
-    char *search_word;
+    char search_word[256];
 } Search_word;
 
 MatchList search_matches(MatchList Matches, Search_word inputs);

@@ -1,6 +1,10 @@
 #include "overview.h"
 
 void overview_of_upcoming_matches(MatchList all_matches) {
+    if (all_matches.length == 0) {
+        printf("No matches found\n");
+        return;
+    }
     for (int i = 0; i < all_matches.length; i++) {
         printf(
      "%d. %s - %s at %s, %d.%d %d/%d-%d \n",

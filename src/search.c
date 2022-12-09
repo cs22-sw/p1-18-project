@@ -47,7 +47,7 @@ char *find_closest_team(MatchList matches, char *search_team) {
         bool team_1_found = false;
         bool team_2_found = false;
         for (int j = 0; all_teams.length; j++) {
-            if (strcmp(all_teams.data[j], matches.data[i].team_2) == 0) {
+            if (strcmp(all_teams.data[j], matches.data[i].team_1) == 0) {
                 team_1_found = true;
                 break;
             }
@@ -80,8 +80,12 @@ char *find_closest_team(MatchList matches, char *search_team) {
     return closest_word;
 }
 
-MatchList search_matches(MatchList Matches, Search_word inputs)
-{
+MatchList search_matches(MatchList Matches, Search_word inputs) {
+    // Calls levenshtein algorithm
+    char* closest_team = find_closest_team(Matches, inputs.search_word);
+    strcpy(inputs.search_word, closest_team);
+    free(closest_team);
+
     MatchList matches_found = new_match_list();
     switch (inputs.operation) {
         case team:
