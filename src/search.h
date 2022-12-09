@@ -11,7 +11,19 @@
 #include "match-list.h"
 #include "string-list.h"
 
-MatchList search_matches(MatchList Matches, char *search_word);
+typedef enum {
+    team = 1,
+    stadium = 2,
+    date = 3
+} Search_Options;
+
+typedef struct {
+    Date user_input;
+    int operation;
+    char *search_word;
+} Search_word;
+
+MatchList search_matches(MatchList Matches, Search_word inputs);
 
 char *find_closest_team(MatchList matches, char *search_team);
 

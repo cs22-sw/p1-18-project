@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "create-match-stats.h": "c",
-        "overview-matches.h": "c"
+        "overview-matches.h": "c",
+        "chrono": "c"
     }
 }
