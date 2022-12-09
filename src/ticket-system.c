@@ -4,9 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "overview-matches.h"
-#include "create-match-stats.h"
-#include "create-array.h"
+#include "overview.h"
+#include "match.h"
+#include "match-list.h"
 #include "booking.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
@@ -33,10 +33,10 @@ void clear_screen() {
 }
 
 int main(void) {
-    // Create array
+    // Create list
     MatchList all_matches = new_match_list();
     
-    // Reads matches.txt and adds the unto the array
+    // Reads matches.txt and adds the unto the list
     load_matches_file(&all_matches);
 
     while (true) {

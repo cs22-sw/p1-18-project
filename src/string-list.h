@@ -11,7 +11,7 @@ typedef struct {
     char** data;
 } StringList;
 
-StringList new_string_list();
+StringList new_string_list(void);
 
 void add_string_list(StringList* list, char* str);
 

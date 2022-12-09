@@ -18,17 +18,13 @@ typedef struct {
     char team_2[STRING_MAX_LENGTH];
     char stadium[STRING_MAX_LENGTH];
     Date match_date_info;
-} Matches;
+} Match;
 
-typedef struct {
-    int total_size_arr;
-    int used_size_arr;
-    Matches *match;
-} MatchList;
-
-Matches create_match(char *first_team,
-                     char *second_team,
-                     char *stadium_match,
-                     Date info_date_match);
+Match new_match(
+    char *first_team,
+    char *second_team,
+    char *stadium_match,
+    Date info_date_match
+);
 
 #endif
