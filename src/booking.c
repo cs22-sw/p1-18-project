@@ -2,7 +2,7 @@
 
 bool print_ticket(Ticket ticket)
 {
-    printf("\nAtendee: %s\n", ticket.attendee);
+    printf("\nAttendee: %s\n", ticket.attendee);
     printf(
         "%s - %s at %s, %d:%d %d/%d-%d \n",
         ticket.match.team_1,
@@ -26,11 +26,6 @@ bool book_ticket(MatchList matches)
     printf("Which teams would you like to watch?\n");
     printf("> ");
     scanf(" %s", buffer);
-
-    char* closest_team = find_closest_team(matches, buffer);
-    strcpy(buffer, closest_team);
-    free(closest_team);
-
     printf("%s\n", buffer);
     
     Date empty;
