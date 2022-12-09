@@ -15,7 +15,7 @@
 #define STRING_MAX_LENGTH 256
 
 typedef struct {
-    Matches match;
+    Match match;
     char attendee[STRING_MAX_LENGTH];
 } Ticket;
 

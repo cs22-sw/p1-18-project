@@ -80,21 +80,40 @@ char *find_closest_team(MatchList matches, char *search_team) {
     return closest_word;
 }
 
-MatchList search_matches(MatchList Matches, char *search_word)
+MatchList search_matches(MatchList Matches, Search_word inputs)
 {
     MatchList matches_found = new_match_list();
+    switch (inputs.operation) {
+        case team:
+            for (int i = 0; i < Matches.length; i++) {
+                if(strcmp(inputs.search_word, Matches.data[i].team_1) == 0) {
+                    add_match_list(Matches.data[i], &matches_found);
+                }
+                else if (strcmp(inputs.search_word, Matches.data[i].team_2) == 0) {
+                    add_match_list(Matches.data[i], &matches_found);
+                }
+            }
+            break;
 
-    for (int i = 0; i < Matches.length; i++)
-    {
-        if(strcmp(search_word, Matches.data[i].team_1) == 0)
-        {
-            add_match_list(Matches.data[i], &matches_found);
-        }
-        else if (strcmp(search_word, Matches.data[i].team_2) == 0)
-        {
-            add_match_list(Matches.data[i], &matches_found);
-        }
+        case stadium:
+            for (int i = 0; i < Matches.length; i++) {
+                if (strcmp(inputs.search_word, Matches.data[i].stadium) == 0) {
+                    add_match_list(Matches.data[i], &matches_found);
+                }
+            }
+
+        case date:
+            for (int i = 0; i < Matches.length; i++) {
+                if (inputs.user_input.month == Matches.data[i].match_date_info.month && 
+                    inputs.user_input.day == Matches.data[i].match_date_info.day) {
+                        add_match_list(Matches.data[i], &matches_found);
+                }
+            }
+            break;
+
+        default:
+            break;
     }
-
+    
     return matches_found;
 }

@@ -2,7 +2,7 @@
 
 bool print_ticket(Ticket ticket)
 {
-    printf("\nAtendee: %s\n", ticket.atendee);
+    printf("\nAtendee: %s\n", ticket.attendee);
     printf(
         "%s - %s at %s, %d:%d %d/%d-%d \n",
         ticket.match.team_1,
@@ -32,8 +32,11 @@ bool book_ticket(MatchList matches)
     free(closest_team);
 
     printf("%s\n", buffer);
-
-    matches_found = search_matches(matches, buffer);
+    
+    Date empty;
+    Search_word inputs = {.operation = team, .user_input = empty};
+    strcpy(inputs.search_word, buffer);
+    matches_found = search_matches(matches, inputs);
 
     // Prints found matches
     overview_of_upcoming_matches(matches_found);
@@ -53,7 +56,7 @@ bool book_ticket(MatchList matches)
     if(selected != -1) {
         Ticket new_ticket;
         char newline;
-        //Askes the user for an atendee name for the ticket
+        //Ask the user for an attendee name for the ticket
         printf("Please enter attendee name\n");
         printf("> ");
         scanf(" %[a-zA-Z ]", new_ticket.attendee);

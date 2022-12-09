@@ -8,6 +8,7 @@
 #include "match.h"
 #include "match-list.h"
 #include "booking.h"
+#include "search.h"
 
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
 int32_t user_input(void) {
@@ -32,6 +33,59 @@ void clear_screen() {
     }
 }
 
+void specific_search_input(Search_word *ptr_user_input) {
+    int operation = -1;
+    char temp_string[256];
+    int input_month = -1;
+    int input_day = -1;
+    Date user_input_date;
+    Search_word user_input;
+    printf("What would you like to search for?: \n");
+    printf("1. Team\n");
+    printf("2. Stadium\n");
+    printf("3. Date\n");
+
+    while (true) {
+        scanf("%d", &operation);
+        if (operation > 0 && operation < 4) {
+            break;
+        }
+    }
+
+    if (operation == team) {
+        printf("Team to search for: \n");
+        scanf("%s", temp_string);
+    }
+    if (operation == stadium) {
+        printf("Stadium to search for: \n");
+        scanf("%s", temp_string);
+    }
+    if (operation == date) {
+        while (true) {
+            printf("Month: \n");
+            scanf("%d", &input_month);
+            if (input_month > 0 && input_month < 13) {
+                break;
+            }
+        }
+        while (true) {
+            printf("Day: \n");
+            scanf("%d", &input_day);
+            if (input_day > 0 && input_day < 31) {
+                break;
+            }
+        }
+        user_input_date = (Date){.month = input_month, .day = input_day};
+        ptr_user_input->operation = operation;
+        ptr_user_input->search_word = "";
+        ptr_user_input->user_input = user_input_date;
+        return;
+    }
+
+    strcpy(ptr_user_input->search_word, temp_string);
+    ptr_user_input->operation = operation;
+}
+
 int main(void) {
     // Create list
     MatchList all_matches = new_match_list();
@@ -45,6 +99,7 @@ int main(void) {
         printf("3. Search upcoming matches\n");
         printf("0. Exit\n");
         int32_t selected = user_input();
+        Search_word inputs;
         switch (selected) {
         case 0:
             return 0;
@@ -68,7 +123,10 @@ int main(void) {
             break;
         // TODO: New case for showing booked tickets
         case 3:
-            printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
+            // printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
+            specific_search_input(&inputs);
+            search_matches(all_matches, inputs);
+            clear_screen();
             break;
         }
     }
