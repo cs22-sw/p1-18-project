@@ -80,37 +80,37 @@ char *find_closest_team(MatchList matches, char *search_team) {
     return closest_word;
 }
 
-MatchList search_matches(MatchList Matches, Search_word inputs) {
+MatchList search_matches(MatchList matches, Search_word inputs) {
     // Calls levenshtein algorithm
-    char* closest_team = find_closest_team(Matches, inputs.search_word);
-    strcpy(inputs.search_word, closest_team);
-    free(closest_team);
+    char* closest_term = find_closest_team(matches, inputs.search_word);
+    strcpy(inputs.search_word, closest_term);
+    free(closest_term);
 
     MatchList matches_found = new_match_list();
     switch (inputs.operation) {
         case team:
-            for (int i = 0; i < Matches.length; i++) {
-                if(strcmp(inputs.search_word, Matches.data[i].team_1) == 0) {
-                    add_match_list(Matches.data[i], &matches_found);
+            for (int i = 0; i < matches.length; i++) {
+                if(strcmp(inputs.search_word, matches.data[i].team_1) == 0) {
+                    add_match_list(matches.data[i], &matches_found);
                 }
-                else if (strcmp(inputs.search_word, Matches.data[i].team_2) == 0) {
-                    add_match_list(Matches.data[i], &matches_found);
+                else if (strcmp(inputs.search_word, matches.data[i].team_2) == 0) {
+                    add_match_list(matches.data[i], &matches_found);
                 }
             }
             break;
 
         case stadium:
-            for (int i = 0; i < Matches.length; i++) {
-                if (strcmp(inputs.search_word, Matches.data[i].stadium) == 0) {
-                    add_match_list(Matches.data[i], &matches_found);
+            for (int i = 0; i < matches.length; i++) {
+                if (strcmp(inputs.search_word, matches.data[i].stadium) == 0) {
+                    add_match_list(matches.data[i], &matches_found);
                 }
             }
 
         case date:
-            for (int i = 0; i < Matches.length; i++) {
-                if (inputs.user_input.month == Matches.data[i].match_date_info.month && 
-                    inputs.user_input.day == Matches.data[i].match_date_info.day) {
-                        add_match_list(Matches.data[i], &matches_found);
+            for (int i = 0; i < matches.length; i++) {
+                if (inputs.user_input.month == matches.data[i].match_date_info.month && 
+                    inputs.user_input.day == matches.data[i].match_date_info.day) {
+                        add_match_list(matches.data[i], &matches_found);
                 }
             }
             break;
