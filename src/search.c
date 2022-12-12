@@ -120,45 +120,36 @@ char *find_closest_team(MatchList matches, char *search_term) {
 MatchList search_matches(MatchList Matches, Search_word *search_word)
 {
     MatchList matches_found = new_match_list();
-    char closest_word[STRING_MAX_LENGTH];
+    char* closest_word;
 
-    switch (search_word->operation)
-    {
-    case team:
-        for (int i = 0; i < Matches.length; i++)
-        {
-            if(strcmp(search_word, Matches.data[i].team_1) == 0)
-            {
+    if (search_word->operation == team) {
+        closest_word = find_closest_team(Matches, search_word->search_word);
+        for (int i = 0; i < Matches.length; i++) {
+            if (strcmp(closest_word, Matches.data[i].team_1) == 0) {
                 add_match_list(Matches.data[i], &matches_found);
-            }
-            else if (strcmp(search_word, Matches.data[i].team_2) == 0)
-            {
+            } else if (strcmp(closest_word, Matches.data[i].team_2) == 0) {
                 add_match_list(Matches.data[i], &matches_found);
             }
         }
-        if (matches_found.length == 0)
-        {
+        if (matches_found.length == 0) {
             printf("No matches found.");
         }
-        break;
-    case stadium:
-        for (int i = 0; i < Matches.length; i++)
-        {
-            if (strcmp(search_word, Matches.data[i].stadium) == 0)
-            {
+    } else if (search_word->operation == stadium) {
+        closest_word = find_closest_stadium(Matches, search_word->search_word);
+        for (int i = 0; i < Matches.length; i++) {
+            if (strcmp(closest_word, Matches.data[i].stadium) == 0) {
                 add_match_list(Matches.data[i], &matches_found);
             }
         }
-        if (matches_found.length == 0)
-        {
+        if (matches_found.length == 0) {
             printf("No matches found.");
         }
-        break;
-    case date:
-        /* code */
-        break;
-    default:
-        break;
+    } else if (search_word->operation == date) {
+        for (int i = 0; i < Matches.length; i++) {
+            if (Matches.data[i].match_date_info.month == search_word->user_input.month && Matches.data[i].match_date_info.day == search_word->user_input.day) {
+                add_match_list(Matches.data[i], &matches_found);
+            }
+        }
     }
 
     return matches_found;
