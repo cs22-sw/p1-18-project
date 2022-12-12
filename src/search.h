@@ -11,6 +11,8 @@
 #include "match-list.h"
 #include "string-list.h"
 
+#define STRING_MAX_LENGTH 256
+
 typedef enum {
     team = 1,
     stadium = 2,
@@ -20,13 +22,15 @@ typedef enum {
 typedef struct {
     Date user_input;
     int operation;
-    char search_word[256];
+    char search_word[STRING_MAX_LENGTH];
 } Search_word;
 
-MatchList search_matches(MatchList Matches, Search_word inputs);
+int levenshtein_distance(char *s, char *t);
+
+char *find_closest_stadium(MatchList matches, char *search_term);
 
 char *find_closest_team(MatchList matches, char *search_team);
 
-int levenshtein_distance(char *s, char *t);
+MatchList search_matches(MatchList Matches, Search_word *search_word);
 
 #endif

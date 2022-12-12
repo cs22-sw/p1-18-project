@@ -41,13 +41,50 @@ int levenshtein_distance(char *s, char *t) {
     return v0[n];
 }
 
-char *find_closest_team(MatchList matches, char *search_team) {
+char *find_closest_stadium(MatchList matches, char *search_term)
+{
+    StringList all_stadiums = new_string_list();
+
+    for (int i = 0; i < matches.length; i++)
+    {
+        bool stadium_found = false;
+        for (int j = 0; j < all_stadiums.length; j++)
+        {
+            if (strcmp(all_stadiums.data[j], matches.data[i].stadium) == 0) {
+                stadium_found = true;
+                break;
+            }
+        }
+        if (!stadium_found) {
+            add_string_list(&all_stadiums, matches.data[i].stadium);
+        }
+    }
+
+    int absolute_distance = 100;
+    int closest_word_index = 0;
+    for (int i = 0; i < all_stadiums.length; i++)
+    {
+        int distance = levenshtein_distance(search_term, all_stadiums.data[i]);
+        if (distance <= absolute_distance) 
+        {
+            absolute_distance = distance;
+            closest_word_index = i;
+        }
+    }
+
+    char* closest_word = malloc(strlen(all_stadiums.data[closest_word_index]) + 1);
+    strcpy(closest_word, all_stadiums.data[closest_word_index]);
+    free_string_list(all_stadiums);
+    return closest_word;
+}
+
+char *find_closest_team(MatchList matches, char *search_term) {
     StringList all_teams = new_string_list();
     for (int i = 0; i < matches.length; i++) {
         bool team_1_found = false;
         bool team_2_found = false;
         for (int j = 0; all_teams.length; j++) {
-            if (strcmp(all_teams.data[j], matches.data[i].team_1) == 0) {
+            if (strcmp(all_teams.data[j], matches.data[i].team_2) == 0) {
                 team_1_found = true;
                 break;
             }
@@ -67,7 +104,7 @@ char *find_closest_team(MatchList matches, char *search_team) {
     int absolute_distance = 100;
     int closest_word_index = 0;
     for (int i = 0; i < all_teams.length; i++) {
-        int distance = levenshtein_distance(search_team, all_teams.data[i]);
+        int distance = levenshtein_distance(search_term, all_teams.data[i]);
         if (distance <= absolute_distance) {
             absolute_distance = distance;
             closest_word_index = i;
@@ -80,44 +117,49 @@ char *find_closest_team(MatchList matches, char *search_team) {
     return closest_word;
 }
 
-MatchList search_matches(MatchList matches, Search_word inputs) {
-    // Calls levenshtein algorithm
-    char* closest_term = find_closest_team(matches, inputs.search_word);
-    strcpy(inputs.search_word, closest_term);
-    free(closest_term);
-
+MatchList search_matches(MatchList Matches, Search_word *search_word)
+{
     MatchList matches_found = new_match_list();
-    switch (inputs.operation) {
-        case team:
-            for (int i = 0; i < matches.length; i++) {
-                if(strcmp(inputs.search_word, matches.data[i].team_1) == 0) {
-                    add_match_list(matches.data[i], &matches_found);
-                }
-                else if (strcmp(inputs.search_word, matches.data[i].team_2) == 0) {
-                    add_match_list(matches.data[i], &matches_found);
-                }
-            }
-            break;
+    char closest_word[STRING_MAX_LENGTH];
 
-        case stadium:
-            for (int i = 0; i < matches.length; i++) {
-                if (strcmp(inputs.search_word, matches.data[i].stadium) == 0) {
-                    add_match_list(matches.data[i], &matches_found);
-                }
+    switch (search_word->operation)
+    {
+    case team:
+        for (int i = 0; i < Matches.length; i++)
+        {
+            if(strcmp(search_word, Matches.data[i].team_1) == 0)
+            {
+                add_match_list(Matches.data[i], &matches_found);
             }
-
-        case date:
-            for (int i = 0; i < matches.length; i++) {
-                if (inputs.user_input.month == matches.data[i].match_date_info.month && 
-                    inputs.user_input.day == matches.data[i].match_date_info.day) {
-                        add_match_list(matches.data[i], &matches_found);
-                }
+            else if (strcmp(search_word, Matches.data[i].team_2) == 0)
+            {
+                add_match_list(Matches.data[i], &matches_found);
             }
-            break;
-
-        default:
-            break;
+        }
+        if (matches_found.length == 0)
+        {
+            printf("No matches found.");
+        }
+        break;
+    case stadium:
+        for (int i = 0; i < Matches.length; i++)
+        {
+            if (strcmp(search_word, Matches.data[i].stadium) == 0)
+            {
+                add_match_list(Matches.data[i], &matches_found);
+            }
+        }
+        if (matches_found.length == 0)
+        {
+            printf("No matches found.");
+        }
+        break;
+    case date:
+        /* code */
+        break;
+    default:
+        break;
     }
-    
+
     return matches_found;
 }

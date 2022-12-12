@@ -37,9 +37,9 @@ void specific_search_print(MatchList matches_found) {
     overview_of_upcoming_matches(matches_found);
 }
 
-void specific_search_input(Search_word *ptr_user_input) {
+void specific_search_input(Search_word *ptr_user_input, MatchList matches) {
     int operation = -1;
-    char temp_string[256];
+    char temp_string[STRING_MAX_LENGTH];
     int input_month = -1;
     int input_day = -1;
     Date user_input_date;
@@ -59,10 +59,24 @@ void specific_search_input(Search_word *ptr_user_input) {
     if (operation == team) {
         printf("Team to search for: \n");
         scanf("%s", temp_string);
+
+        find_closest_team(matches, temp_string);
+
+        ptr_user_input->operation = operation;
+        strcpy(ptr_user_input->search_word, temp_string);
+
+        return;
     }
     if (operation == stadium) {
         printf("Stadium to search for: \n");
         scanf("%s", temp_string);
+
+        find_closest_stadium(matches, temp_string);
+
+        ptr_user_input->operation = operation;
+        strcpy(ptr_user_input->search_word, temp_string);
+
+        return;
     }
     if (operation == date) {
         while (true) {
@@ -127,8 +141,8 @@ int main(void) {
         // TODO: New case for showing booked tickets
         case 3:
             // printf("Being able to filter matches based on criteria for the matches the customer wants to watch makes it easier and faster for the customer to navigate, and thus reduces the likelihood of them needing to rely on third-party sites, thereby not solving the actual problem of needing multiple sites in the first place.\n");
-            specific_search_input(&inputs);
-            specific_search_print(search_matches(all_matches, inputs));
+            specific_search_input(&inputs, all_matches);
+            specific_search_print(search_matches(all_matches, &inputs));
             clear_screen();
             break;
         }

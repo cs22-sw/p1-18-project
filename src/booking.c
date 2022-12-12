@@ -31,7 +31,7 @@ bool book_ticket(MatchList matches)
     Date empty;
     Search_word inputs = {.operation = team, .user_input = empty};
     strcpy(inputs.search_word, buffer);
-    matches_found = search_matches(matches, inputs);
+    matches_found = search_matches(matches, &inputs);
 
     // Prints found matches
     overview_of_upcoming_matches(matches_found);
