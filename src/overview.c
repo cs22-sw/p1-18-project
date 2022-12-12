@@ -7,7 +7,7 @@ void overview_of_upcoming_matches(MatchList all_matches) {
     }
     for (int i = 0; i < all_matches.length; i++) {
         printf(
-     "%d. %s - %s at %s, %d.%d %d/%d-%d \n",
+     "%d. %s - %s at %s, %d.%d %d/%d-%d\t\tTickets available: %d\n",
             i,
             all_matches.data[i].team_1,
             all_matches.data[i].team_2,
@@ -16,7 +16,8 @@ void overview_of_upcoming_matches(MatchList all_matches) {
             all_matches.data[i].match_date_info.minute,
             all_matches.data[i].match_date_info.day,
             all_matches.data[i].match_date_info.month,
-            all_matches.data[i].match_date_info.year
+            all_matches.data[i].match_date_info.year,
+            all_matches.data[i].ticket_count
         );
     }
 }

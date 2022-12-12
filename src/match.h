@@ -14,10 +14,12 @@ typedef struct {
 } Date;
 
 typedef struct {
+    int id;
     char team_1[STRING_MAX_LENGTH];
     char team_2[STRING_MAX_LENGTH];
     char stadium[STRING_MAX_LENGTH];
     Date match_date_info;
+    int ticket_count;
 } Match;
 
 Match new_match(

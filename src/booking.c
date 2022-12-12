@@ -60,6 +60,17 @@ bool book_ticket(MatchList matches)
 
         // Prints the ticket to the terminal
         print_ticket(new_ticket);
+
+        for (int i = 0; i < matches.length; i++)
+        {
+            if (matches.data[i].id == matches_found.data[selected].id)
+            {
+                matches.data[i].ticket_count = matches.data[i].ticket_count - 1;
+                break;
+            }
+        }
+        
+        save_matches_file(matches);
     }
     
     return true;

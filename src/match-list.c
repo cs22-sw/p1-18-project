@@ -41,15 +41,36 @@ bool load_matches_file(MatchList *all_matches) {
     while (true) {
         Match match;
 
-        int eof = fscanf(fp, "%[^,],%[^,],%[^,],%d,%d,%d,%d,%d\n", match.team_1, match.team_2, match.stadium,
+        int eof = fscanf(fp, "%d,%[^,],%[^,],%[^,],%d,%d,%d,%d,%d,%d\n", &match.id, match.team_1, match.team_2, match.stadium,
                      &match.match_date_info.year, &match.match_date_info.month, &match.match_date_info.day,
-                     &match.match_date_info.hour, &match.match_date_info.minute);
+                     &match.match_date_info.hour, &match.match_date_info.minute, &match.ticket_count);
         if (eof == EOF) {
             break;
         }
 
         add_match_list(match, all_matches);
     }
+    fclose(fp);
+    return true;
+}
+
+bool save_matches_file(MatchList all_matches)
+{
+    FILE *fp;
+    fp = fopen("../src/matches.txt", "wa");
+    if (fp == NULL) {
+        printf("Couldn't open matches.txt");
+        return false;
+    }
+
+    for (int i = 0; i < all_matches.length; i++)
+    {
+        Match match = all_matches.data[i];
+        fprintf(fp, "%d,%s,%s,%s,%d,%d,%d,%d,%d,%d\n", match.id, match.team_1, match.team_2, match.stadium,
+                     match.match_date_info.year, match.match_date_info.month, match.match_date_info.day,
+                     match.match_date_info.hour, match.match_date_info.minute, match.ticket_count);
+    }
+    
     fclose(fp);
     return true;
 }

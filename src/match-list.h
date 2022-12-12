@@ -20,4 +20,6 @@ void add_match_list(Match match, MatchList *list);
 
 bool load_matches_file(MatchList *all_matches);
 
+bool save_matches_file(MatchList all_matches);
+
 #endif
