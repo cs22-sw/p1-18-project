@@ -9,4 +9,3 @@
 8,Everton,Liverpool,Emirates Stadium,2022,12,14,18,00,6000
 9,Everton,Bristol City,Emirates Stadium,2022,12,14,18,00,6000
 10,Liverpool,Bristol City,Emirates Stadium,2022,12,14,18,00,6000
-
