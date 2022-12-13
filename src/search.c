@@ -83,7 +83,7 @@ char *find_closest_team(MatchList matches, char *search_term) {
     for (int i = 0; i < matches.length; i++) {
         bool team_1_found = false;
         bool team_2_found = false;
-        for (int j = 0; all_teams.length; j++) {
+        for (int j = 0; j < all_teams.length; j++) {
             if (strcmp(all_teams.data[j], matches.data[i].team_2) == 0) {
                 team_1_found = true;
                 break;
