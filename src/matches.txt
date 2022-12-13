@@ -1,2 +1,12 @@
-0,McUnited,Bayern,Old Trafford,2022,12,10,18,15,1000
-1,barcelona,Bayern,Old Trafford,2022,12,10,18,15,999
+0,Manchester United,Newcastle United,Old Trafford,2022,12,10,18,15,1000
+1,Liverpool,Newcastle United,Old Trafford,2022,12,10,18,15,999
+2,Bristol City,Manchester United,Wembley Stadium,2022,12,11,16,00,4000
+3,Manchester United,Liverpool,Wembley Stadium,2022,12,11,16,00,5000
+4,Bristol City,Aston Villa,Wembley Stadium,2022,12,12,18,00,6000
+5,Bristol City,Manchester United,London Stadium,2022,12,12,18,00,6000
+6,Aston Villa,Manchester United,London Stadium,2022,12,13,18,00,6000
+7,Aston Villa,Liverpool,London Stadium,2022,12,13,18,00,6000
+8,Everton,Liverpool,Emirates Stadium,2022,12,14,18,00,6000
+9,Everton,Bristol City,Emirates Stadium,2022,12,14,18,00,6000
+10,Liverpool,Bristol City,Emirates Stadium,2022,12,14,18,00,6000
+
