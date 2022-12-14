@@ -11,15 +11,15 @@
 #include "match-list.h"
 #include "search.h"
 #include "overview.h"
+#include "ticket-list.h"
 
 #define STRING_MAX_LENGTH 256
 
-typedef struct {
-    Match match;
-    char attendee[STRING_MAX_LENGTH];
-} Ticket;
+bool save_ticket(TicketList tickets);
 
-bool print_ticket(Ticket ticket);
+bool read_tickets_file(TicketList *tickets);
+
+bool print_ticket(TicketList tickets);
 
 bool book_ticket(MatchList matches);
 

@@ -13,8 +13,8 @@
 // This asks the user for an integer in the range of 0..=3 which corresponds to our options in the menu
 int32_t user_input(void) {
     int32_t selected = -1;
-    while (selected < 0 || selected > 3) {
-        printf("Please pick an option and type enter (1, 2, 3): ");
+    while (selected < 0 || selected > 4) {
+        printf("Please pick an option and type enter (1, 2, 3, 4): ");
         scanf("%d", &selected);
     }
     return selected;
@@ -106,6 +106,7 @@ void specific_search_input(Search_word *ptr_user_input, MatchList matches) {
 int main(void) {
     // Create list
     MatchList all_matches = new_match_list();
+    TicketList tickets = new_ticket_list();
     
     // Reads matches.txt and adds the unto the list
     load_matches_file(&all_matches);
@@ -114,6 +115,7 @@ int main(void) {
         printf("1. Overview of upcoming matches\n");
         printf("2. Book tickets\n");
         printf("3. Search upcoming matches\n");
+        printf("4. Show booked tickets\n");
         printf("0. Exit\n");
         int32_t selected = user_input();
         Search_word inputs;
@@ -144,6 +146,11 @@ int main(void) {
             specific_search_input(&inputs, all_matches);
             specific_search_print(search_matches(all_matches, &inputs));
             clear_screen();
+            break;
+        case 4:
+            printf("Your tickets:\n");
+            read_tickets_file(&tickets);
+            print_ticket(tickets);
             break;
         }
     }
