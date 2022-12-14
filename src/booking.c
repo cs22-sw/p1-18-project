@@ -1,7 +1,6 @@
 #include "booking.h"
 
-bool print_ticket(Ticket ticket)
-{
+bool print_ticket(Ticket ticket) {
     printf("\nAttendee: %s\n", ticket.attendee);
     printf(
         "%s - %s at %s, %d:%d %d/%d-%d \n",
@@ -16,8 +15,7 @@ bool print_ticket(Ticket ticket)
     );
 }
 
-bool book_ticket(MatchList matches)
-{
+bool book_ticket(MatchList matches) {
     int32_t selected = -1;
     char buffer[STRING_MAX_LENGTH];
     
@@ -61,15 +59,12 @@ bool book_ticket(MatchList matches)
         // Prints the ticket to the terminal
         print_ticket(new_ticket);
 
-        for (int i = 0; i < matches.length; i++)
-        {
-            if (matches.data[i].id == matches_found.data[selected].id)
-            {
+        for (int i = 0; i < matches.length; i++) {
+            if (matches.data[i].id == matches_found.data[selected].id) {
                 matches.data[i].ticket_count = matches.data[i].ticket_count - 1;
                 break;
             }
         }
-        
         save_matches_file(matches);
     }
     

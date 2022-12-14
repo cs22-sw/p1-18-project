@@ -2,6 +2,7 @@
 
 // levenshtein distance algorithm
 // https://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
+
 int levenshtein_distance(char *s, char *t) {
     int m = strlen(s);
     int n = strlen(t);
@@ -18,14 +19,7 @@ int levenshtein_distance(char *s, char *t) {
         for (int j = 0; j < n; j++) {
             int deletion_cost = v0[j + 1] + 1;
             int insertion_cost = v1[j] + 1;
-            int substitution_cost = 0;
-
-            if (s[i] == t[j]) {
-                substitution_cost = v0[j];
-            }
-            else {
-                substitution_cost = v0[j] + 1;
-            }
+            int substitution_cost = (s[i] == t[j] ? v0[j] : v0[j] + 1);
 
             int minimum = deletion_cost <= insertion_cost ? deletion_cost : insertion_cost;
             v1[j + 1] = substitution_cost <= minimum ? substitution_cost : minimum;
@@ -41,15 +35,12 @@ int levenshtein_distance(char *s, char *t) {
     return v0[n];
 }
 
-char *find_closest_stadium(MatchList matches, char *search_term)
-{
+char *find_closest_stadium(MatchList matches, char *search_term) {
     StringList all_stadiums = new_string_list();
 
-    for (int i = 0; i < matches.length; i++)
-    {
+    for (int i = 0; i < matches.length; i++) {
         bool stadium_found = false;
-        for (int j = 0; j < all_stadiums.length; j++)
-        {
+        for (int j = 0; j < all_stadiums.length; j++) {
             if (strcmp(all_stadiums.data[j], matches.data[i].stadium) == 0) {
                 stadium_found = true;
                 break;
@@ -62,11 +53,9 @@ char *find_closest_stadium(MatchList matches, char *search_term)
 
     int absolute_distance = 100;
     int closest_word_index = 0;
-    for (int i = 0; i < all_stadiums.length; i++)
-    {
+    for (int i = 0; i < all_stadiums.length; i++) {
         int distance = levenshtein_distance(search_term, all_stadiums.data[i]);
-        if (distance <= absolute_distance) 
-        {
+        if (distance <= absolute_distance) {
             absolute_distance = distance;
             closest_word_index = i;
         }
@@ -117,8 +106,7 @@ char *find_closest_team(MatchList matches, char *search_term) {
     return closest_word;
 }
 
-MatchList search_matches(MatchList Matches, Search_word *search_word)
-{
+MatchList search_matches(MatchList Matches, Search_word *search_word) {
     MatchList matches_found = new_match_list();
     char* closest_word;
 
@@ -146,7 +134,8 @@ MatchList search_matches(MatchList Matches, Search_word *search_word)
         }
     } else if (search_word->operation == date) {
         for (int i = 0; i < Matches.length; i++) {
-            if (Matches.data[i].match_date_info.month == search_word->user_input.month && Matches.data[i].match_date_info.day == search_word->user_input.day) {
+            if (Matches.data[i].match_date_info.month == search_word->user_input.month && 
+                Matches.data[i].match_date_info.day == search_word->user_input.day) {
                 add_match_list(Matches.data[i], &matches_found);
             }
         }
