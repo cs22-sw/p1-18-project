@@ -2,54 +2,46 @@
 
 // levenshtein distance algorithm
 // https://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
-int levenshtein_distance(char *s, char *t) {
-    int m = strlen(s);
-    int n = strlen(t);
-    int v0[n + 1];
-    int v1[n + 1];
-
-    for (int i = 0; i < n; i++) {
-        v0[i] = i;
-    }
-
-    for (int i = 0; i < m; i++) {
-        v0[0] = i + 1;
-
-        for (int j = 0; j < n; j++) {
-            int deletion_cost = v0[j + 1] + 1;
-            int insertion_cost = v1[j] + 1;
-            int substitution_cost = 0;
-
-            if (s[i] == t[j]) {
-                substitution_cost = v0[j];
-            }
-            else {
-                substitution_cost = v0[j] + 1;
-            }
-
-            int minimum = deletion_cost <= insertion_cost ? deletion_cost : insertion_cost;
-            v1[j + 1] = substitution_cost <= minimum ? substitution_cost : minimum;
-        }
-        // swaps the arrays
-        for (int k = 0; k < n + 1; k++) {
-            int temp;
-            temp = v1[k];
-            v1[k] = v0[k];
-            v0[k] = temp;
-        }
-    }
-    return v0[n];
+int minimum(int a, int b, int c) {
+    int min = a;
+    if (b < min) min = b;
+    if (c < min) min = c;
+    return min;
 }
 
-char *find_closest_stadium(MatchList matches, char *search_term)
-{
+int levenshtein_distance(char *s, char *t) {
+    // Variables
+    int n = strlen(s);
+    int m = strlen(t);
+    int arr[n+1][m+1];
+
+    // Catch exceptions
+    if (n == 0) return m;
+    if (m == 0) return n;
+    
+    // Initialize
+    for (int i = 0; i <= n; i++) {
+        arr[i][0] = i;
+    }
+    for (int j = 0; j <= m; j++) {
+        arr[0][j] = j;
+    }
+    
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            int cost = (s[i-1] == t[j - 1]) ? 0 : 1;
+            arr[i][j] = minimum(arr[i - 1][j] + 1, arr[i][j - 1] + 1, arr[i - 1][j - 1] + cost);
+        }
+    }
+    return arr[n][m];
+}
+
+char *find_closest_stadium(MatchList matches, char *search_term) {
     StringList all_stadiums = new_string_list();
 
-    for (int i = 0; i < matches.length; i++)
-    {
+    for (int i = 0; i < matches.length; i++) {
         bool stadium_found = false;
-        for (int j = 0; j < all_stadiums.length; j++)
-        {
+        for (int j = 0; j < all_stadiums.length; j++) {
             if (strcmp(all_stadiums.data[j], matches.data[i].stadium) == 0) {
                 stadium_found = true;
                 break;
@@ -62,11 +54,9 @@ char *find_closest_stadium(MatchList matches, char *search_term)
 
     int absolute_distance = 100;
     int closest_word_index = 0;
-    for (int i = 0; i < all_stadiums.length; i++)
-    {
+    for (int i = 0; i < all_stadiums.length; i++) {
         int distance = levenshtein_distance(search_term, all_stadiums.data[i]);
-        if (distance <= absolute_distance) 
-        {
+        if (distance <= absolute_distance) {
             absolute_distance = distance;
             closest_word_index = i;
         }
@@ -86,11 +76,9 @@ char *find_closest_team(MatchList matches, char *search_term) {
         for (int j = 0; j < all_teams.length; j++) {
             if (strcmp(all_teams.data[j], matches.data[i].team_2) == 0) {
                 team_1_found = true;
-                break;
             }
             if (strcmp(all_teams.data[j], matches.data[i].team_2) == 0) {
                 team_2_found = true;
-                break;
             }
         }
         if (!team_1_found) {
@@ -114,11 +102,13 @@ char *find_closest_team(MatchList matches, char *search_term) {
     char* closest_word = malloc(strlen(all_teams.data[closest_word_index]) + 1);
     strcpy(closest_word, all_teams.data[closest_word_index]);
     free_string_list(all_teams);
+    if (strcmp(search_term, closest_word) != 0) {
+        printf("You search word has been changed to the closets word: %s\n", closest_word);
+    }
     return closest_word;
 }
 
-MatchList search_matches(MatchList Matches, Search_word *search_word)
-{
+MatchList search_matches(MatchList Matches, Search_word *search_word) {
     MatchList matches_found = new_match_list();
     char* closest_word;
 
