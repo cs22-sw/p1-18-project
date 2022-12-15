@@ -59,9 +59,6 @@ void specific_search_input(Search_word *ptr_user_input, MatchList matches) {
     if (operation == team) {
         printf("Team to search for: \n");
         scanf("%s", temp_string);
-
-        find_closest_team(matches, temp_string);
-
         ptr_user_input->operation = operation;
         strcpy(ptr_user_input->search_word, temp_string);
 
@@ -70,12 +67,8 @@ void specific_search_input(Search_word *ptr_user_input, MatchList matches) {
     if (operation == stadium) {
         printf("Stadium to search for: \n");
         scanf("%s", temp_string);
-
-        find_closest_stadium(matches, temp_string);
-
         ptr_user_input->operation = operation;
         strcpy(ptr_user_input->search_word, temp_string);
-
         return;
     }
     if (operation == date) {
