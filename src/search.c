@@ -65,6 +65,9 @@ char *find_closest_stadium(MatchList matches, char *search_term) {
     char* closest_word = malloc(strlen(all_stadiums.data[closest_word_index]) + 1);
     strcpy(closest_word, all_stadiums.data[closest_word_index]);
     free_string_list(all_stadiums);
+    if (strcmp(search_term, closest_word) != 0) {
+    printf("You search word: %s has been changed to the closets word: %s\n", search_term, closest_word);
+    }
     return closest_word;
 }
 
