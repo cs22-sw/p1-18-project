@@ -1,19 +1,89 @@
 #include "booking.h"
 
-bool print_ticket(Ticket ticket)
+bool print_ticket(TicketList tickets)
 {
-    printf("\nAttendee: %s\n", ticket.attendee);
-    printf(
-        "%s - %s at %s, %d:%d %d/%d-%d \n",
-        ticket.match.team_1,
-        ticket.match.team_2,
-        ticket.match.stadium,
-        ticket.match.match_date_info.hour,
-        ticket.match.match_date_info.minute,
-        ticket.match.match_date_info.day,
-        ticket.match.match_date_info.month,
-        ticket.match.match_date_info.year
-    );
+    for (int i = 0; i < tickets.length; i++)
+    {
+        printf("\nAttendee: %s\n", tickets.data[i].attendee);
+        printf(
+            "%s - %s at %s, %d:%d %d/%d-%d \n \n",
+            tickets.data[i].match.team_2,
+            tickets.data[i].match.team_1,
+            tickets.data[i].match.stadium,
+            tickets.data[i].match.match_date_info.hour,
+            tickets.data[i].match.match_date_info.minute,
+            tickets.data[i].match.match_date_info.day,
+            tickets.data[i].match.match_date_info.month,
+            tickets.data[i].match.match_date_info.year
+        );
+    }
+    
+}
+
+bool save_ticket(TicketList tickets)
+{
+    if (tickets.length == 0)
+    {
+        printf("No tickets to save\n");
+        return false;
+    }
+    
+    FILE *fp;
+    fp = fopen("../src/tickets.txt", "wa");
+    if (fp == NULL) {
+        printf("Couldn't open tickets.txt");
+        return false;
+    }
+
+    for (int i = 0; i < tickets.length; i++)
+    {
+        Ticket ticket = tickets.data[i];
+        fprintf(fp, "%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%s\n",
+                     tickets.data[i].match.id, tickets.data[i].match.team_1, 
+                     tickets.data[i].match.team_2, tickets.data[i].match.stadium,
+                     tickets.data[i].match.match_date_info.year, 
+                     tickets.data[i].match.match_date_info.month,
+                     tickets.data[i].match.match_date_info.day, 
+                     tickets.data[i].match.match_date_info.hour,
+                     tickets.data[i].match.match_date_info.minute,
+                     tickets.data[i].match.ticket_count,
+                     tickets.data[i].attendee);
+    }
+    
+    fclose(fp);
+    return true;
+}
+
+bool read_tickets_file(TicketList *tickets)
+{
+    FILE *fp;
+    fp = fopen("../src/tickets.txt", "r");
+    if (fp == NULL) {
+        printf("Couldn't open tickets.txt");
+        return false;
+    }
+
+    while (true) {
+        Ticket ticket;
+
+        int eof = fscanf(fp, "%d,%[^,],%[^,],%[^,],%d,%d,%d,%d,%d,%d,%[^,]\n", 
+                     &ticket.match.id, ticket.match.team_1, 
+                     ticket.match.team_2, ticket.match.stadium,
+                     &ticket.match.match_date_info.year, 
+                     &ticket.match.match_date_info.month,
+                     &ticket.match.match_date_info.day, 
+                     &ticket.match.match_date_info.hour,
+                     &ticket.match.match_date_info.minute,
+                     &ticket.match.ticket_count,
+                     ticket.attendee);
+        if (eof == EOF) {
+            break;
+        }
+        add_ticket_list(ticket, tickets);
+    }
+    fclose(fp);
+
+    return true;
 }
 
 bool book_ticket(MatchList matches)
@@ -22,6 +92,7 @@ bool book_ticket(MatchList matches)
     char buffer[STRING_MAX_LENGTH];
     
     MatchList matches_found = new_match_list();
+    TicketList tickets_booked = new_ticket_list();
 
     printf("Which teams would you like to watch?\n");
     printf("> ");
@@ -59,7 +130,10 @@ bool book_ticket(MatchList matches)
         new_ticket.match = matches_found.data[selected];
 
         // Prints the ticket to the terminal
-        print_ticket(new_ticket);
+        add_ticket_list(new_ticket, &tickets_booked);
+        print_ticket(tickets_booked);
+
+        save_ticket(tickets_booked);
 
         for (int i = 0; i < matches.length; i++)
         {
