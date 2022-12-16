@@ -2,6 +2,7 @@
 
 // levenshtein distance algorithm
 // https://en.wikipedia.org/wiki/Levenshtein_distance#Iterative_with_two_matrix_rows
+
 int minimum(int a, int b, int c) {
     int min = a;
     if (b < min) min = b;
@@ -19,12 +20,10 @@ int levenshtein_distance(char *s, char *t) {
     if (n == 0) return m;
     if (m == 0) return n;
     
-    // Initialize
+    // Initialize 2d array
     for (int i = 0; i <= n; i++) {
         arr[i][0] = i;
-    }
-    for (int j = 0; j <= m; j++) {
-        arr[0][j] = j;
+        arr[0][i] = i;
     }
     
     for (int i = 1; i <= n; i++) {
