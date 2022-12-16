@@ -38,7 +38,7 @@ bool save_ticket(TicketList tickets)
     for (int i = 0; i < tickets.length; i++)
     {
         Ticket ticket = tickets.data[i];
-        fprintf(fp, "%d,%s,%s,%s,%d,%d,%d,%d,%d,%d\n",
+        fprintf(fp, "%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%s\n",
                      tickets.data[i].match.id, tickets.data[i].match.team_1, 
                      tickets.data[i].match.team_2, tickets.data[i].match.stadium,
                      tickets.data[i].match.match_date_info.year, 
@@ -46,7 +46,8 @@ bool save_ticket(TicketList tickets)
                      tickets.data[i].match.match_date_info.day, 
                      tickets.data[i].match.match_date_info.hour,
                      tickets.data[i].match.match_date_info.minute,
-                     tickets.data[i].match.ticket_count);
+                     tickets.data[i].match.ticket_count,
+                     tickets.data[i].attendee);
     }
     
     fclose(fp);
@@ -65,7 +66,7 @@ bool read_tickets_file(TicketList *tickets)
     while (true) {
         Ticket ticket;
 
-        int eof = fscanf(fp, "%d,%[^,],%[^,],%[^,],%d,%d,%d,%d,%d,%d\n", 
+        int eof = fscanf(fp, "%d,%[^,],%[^,],%[^,],%d,%d,%d,%d,%d,%d,%[^,]\n", 
                      &ticket.match.id, ticket.match.team_1, 
                      ticket.match.team_2, ticket.match.stadium,
                      &ticket.match.match_date_info.year, 
@@ -73,7 +74,8 @@ bool read_tickets_file(TicketList *tickets)
                      &ticket.match.match_date_info.day, 
                      &ticket.match.match_date_info.hour,
                      &ticket.match.match_date_info.minute,
-                     &ticket.match.ticket_count);
+                     &ticket.match.ticket_count,
+                     ticket.attendee);
         if (eof == EOF) {
             break;
         }
@@ -81,7 +83,6 @@ bool read_tickets_file(TicketList *tickets)
     }
     fclose(fp);
 
-    printf("Shits lit!");
     return true;
 }
 
